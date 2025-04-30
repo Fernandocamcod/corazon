@@ -1,4 +1,4 @@
-/* Estilos generales */
+/* Estilos generales responsive */
 body {
     display: flex;
     justify-content: center;
@@ -8,70 +8,76 @@ body {
     margin: 0;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
+    touch-action: manipulation; /* Mejora la respuesta táctil */
 }
 
-/* Contenedor principal */
+/* Contenedor principal (ahora clickeable) */
 .container {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100vh;
+    z-index: 10;
+    cursor: pointer; /* Indica que es clickeable */
 }
 
-/* Corazón principal */
+/* Corazón responsive */
 .heart {
     position: relative;
-    width: 120px;
-    height: 110px;
+    width: 25vmin; /* Usa unidades relativas */
+    height: 23vmin;
     background-color: #ff4d4d;
     transform: rotate(-45deg);
     animation: heartbeat 1.2s infinite;
-    cursor: pointer;
-    box-shadow: 0 0 40px #ff4d4d;
+    box-shadow: 0 0 10vmin #ff4d4d;
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: none; /* El clic se maneja en el contenedor */
 }
 
-/* Círculos para formar el corazón */
+/* Círculos del corazón (responsive) */
 .heart:before,
 .heart:after {
     content: "";
     position: absolute;
-    width: 120px;
-    height: 110px;
+    width: 25vmin;
+    height: 23vmin;
     background-color: #ff4d4d;
     border-radius: 50%;
-    box-shadow: 0 0 40px #ff4d4d;
+    box-shadow: 0 0 10vmin #ff4d4d;
 }
 
 .heart:before {
-    top: -55px;
+    top: -12vmin;
     left: 0;
 }
 
 .heart:after {
     top: 0;
-    left: 55px;
+    left: 12vmin;
 }
 
-/* Texto "Te amo" - ¡NUEVO Y MEJORADO! */
+/* Texto responsive */
 .heart-text {
     position: absolute;
     color: white;
-    font-size: 30px;
+    font-size: 6vmin; /* Tamaño relativo */
     font-weight: bold;
     transform: rotate(45deg);
     text-align: center;
     width: 100%;
     z-index: 28;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-    pointer-events: none; /* Permite hacer clic en el corazón */
+    pointer-events: none;
+    user-select: none;
 }
 
-/* Contenedor de pétalos (asegúrate de que esté detrás del corazón) */
+/* Pétalos responsive */
 .petals-container {
     position: fixed;
     top: 0;
@@ -83,25 +89,37 @@ body {
     overflow: hidden;
 }
 
-/* Estilo de cada pétalo */
 .petal {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 8vmin;
+    height: 8vmin;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ff6b6b" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
     background-size: contain;
     opacity: 0;
     animation: fall linear forwards;
-    will-change: transform, opacity; /* Optimización para el navegador */
+    will-change: transform, opacity;
 }
 
 @keyframes fall {
-    0% {
-        transform: translateY(-10vh) rotate(0deg) scale(0.5);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(110vh) rotate(360deg) scale(1);
-        opacity: 0;
-    }
+    0% { transform: translateY(-10vh) rotate(0deg) scale(0.5); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg) scale(1); opacity: 0; }
+}
+
+@keyframes heartbeat {
+    0% { transform: rotate(-45deg) scale(1); }
+    25% { transform: rotate(-45deg) scale(1.1); }
+    50% { transform: rotate(-45deg) scale(1); }
+    75% { transform: rotate(-45deg) scale(1.1); }
+    100% { transform: rotate(-45deg) scale(1); }
+}
+
+/* Efecto de clic en pantalla */
+.screen-click {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    background: transparent;
 }
